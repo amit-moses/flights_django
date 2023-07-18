@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block content %}
+
+{% if flights %}
+{% for fl in flights %}
+<div class="col-sm-4">
+    <div class="panel panel-primary">
+        <div class="panel-heading">{{ fl }}</div>
+        <div class="panel-body">{% load static %}<img src="{% static fl.image %}" class="img-responsive" style="width:100%" alt="Image">
+        </div>
+        <div class="panel-body">{{ fl.date }} <br> {{ fl.tickets }} available </div>
+        <form method="POST" action="/flights/buy/{{fl.id}}">
+            {% csrf_token %}
+            <input max="10" value="0" type="number" name="tickets" id="typeNumber" class="form-control" />
+            <input type="submit" value="order" class="btn btn-primary">
+        </form>
+    </div>
+</div>
+{% endfor %}
+{% else %}
+    <p>No flights are available.</p>
+{% endif %}
+
+{% endblock %}
