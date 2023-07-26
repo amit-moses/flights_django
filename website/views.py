@@ -14,5 +14,15 @@ def buy_ticket(request, flight_id):
         fl[0].tickets -= int(request.POST.get("tickets", 0))
         fl[0].save()
     return redirect('flightlist')
+
+def change_img(request, flight_id):
+    img = request.FILES.get('image')
+    fl = Flight.objects.filter(pk = flight_id)
+    if len(fl):
+        fl[0].image = img
+        fl[0].save()
+    return redirect('flightlist')
+
+
     
     
